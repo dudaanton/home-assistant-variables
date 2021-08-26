@@ -1,5 +1,7 @@
 # home-assistant-variables
 
+The fork of https://github.com/snarky-snark/home-assistant-variables repository
+
 The `var` component is a Home Assistant integration for declaring and
 setting generic variable entities. Variables can be set manually using
 the `var.set` service or they can be set using templates or SQL queries
