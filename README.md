@@ -36,6 +36,7 @@ queries and uses the same database setting.
   + [Using an SQL Query in a Template](#using-an-sql-query-in-a-template)
 * [Scenes](#scenes)
 * [Lovelace UI](#lovelace-ui)
+* [Reload](#reload)
 * [Why?](#why)
 * [Useful Links](#useful-links)
 
@@ -78,6 +79,9 @@ var:
 
 **var**
 *(map) (Required)*
+* **unique_id**
+  *(string)(Optional)*
+  Unique identifier for VAR entity, to enable overriding settings from within the UI, such as the entity name or room. Use with care, and only if explicitly required!
 * **friendly_name**
   *(string)(Optional)*
   Name to use in the frontend.
@@ -103,6 +107,11 @@ var:
   `tracked_event_type`, or `var.update`). To pass a template to
   be evaluated once by `var.set`, use the `value`
   parameter in a `data_template`.
+* **attributes**
+  *(map)(Optional)*
+  Dictionary of attributes equivalent to that of HomeAssistant [template sensor attributes](https://www.home-assistant.io/integrations/template/#attributes).
+
+  Similar to *value_template*, attributes are evaluated on every update.
 * **tracked_entity_id**
   *(string | list)(Optional)*
   A list of entity IDs so the variable reacts to state changes of these
@@ -186,6 +195,8 @@ parameters can also be set using `var.set`.
   *(match_all)(Optional)*
 * **value_template**
   *(template)(Optional)*
+* **attributes**
+  *(map)(Optional)*
 * **tracked_entity_id**
   *(string | list)(Optional)*
 * **tracked_event_type**
@@ -296,6 +307,9 @@ var:
     friendly_name: 'yz'
     value_template: "{{ (states('var.y') | int) * ( states('var.z') | int) }}"
     tracked_event_type: my_custom_event
+    attributes:
+      y: "{{ states('var.y') }}"
+      z: "{{ states('var.z') }}"
 ```
 
 ## Templates
@@ -329,6 +343,10 @@ automation:
           {% elif trigger.event.data.contents == 'formula' %}
             {{ (states('var.daily_bottle_feed_volume_formula') | int) + (trigger.event.data.volume | int) }}
           {% endif %}
+        attributes: >-
+          last_feed_volume: "{{ trigger.event.data.volume }}"
+
+
 ```
 ### DYNAMIC VARIABLE UPDATES USING TEMPLATES
 This example shows how the value, and other attributes of the variable,
@@ -448,6 +466,20 @@ cards:
 
 Tip: Using a unit of `' '` can be useful if you want to group unit-less
 variables together in a single 2D graph.
+
+## Reload
+
+Variable configuration can be reloaded without restarting HA using the 
+YAML tab on the Developer Tools page. When the `var` component is loaded
+an option will be added to the `YAML configuration reloading` section 
+named `Variables`. Clicking this option will reload all `var` 
+configuration.
+
+Note: the component is only loaded by HA at startup when configuration 
+is defined for the component. This means that if the `var` component is
+installed and HA is restarted without `var` configuration the reload
+option is not available yet. You have to add some configuration first 
+and restart HA again before the reload option becomes available.
 
 ## Why?
 

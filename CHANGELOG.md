@@ -5,6 +5,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.15.0] - 2022-07-17
+### Added
+- Added configuration option to provide `unique_id` for var entities. Adding a `unique_id` allows variables to be edited via the Home Assistant GUI. Thanks again to [RoboMagus](https://github.com/RoboMagus)!
+
+## [0.14.2] - 2022-06-29
+### Fixed
+- Updated import to account for [refactoring in the recorder component](https://github.com/home-assistant/core/pull/72977/commits/2a3cc48f921d7c4d6b5772989dc9466f730024b6#diff-3081799db8a9325527d03012208ed66e8667d5d0f807bcd499424fabb99c32ff) in HA 2022.7.0.
+
+## [0.14.1] - 2022-06-08
+### Fixed
+- Fixed issue with tracked event listeners being dropped when var config reloads.
+
+## [0.14.0] - 2022-06-08
+### Added
+- Added support by for variable attributes. Thanks to [RoboMagus](https://github.com/RoboMagus)!
+
+## [0.13.1] - 2022-06-05
+### Fixed
+- Fixed broken database queries by moving database accesses off of the event thread. This addresses the [breaking change](https://github.com/home-assistant/core/pull/71547) introduced in Home Assistant 2022.04.
+
+## [0.13.0] - 2022-06-01
+### Added
+- Added support for live reloading of var config. Thanks to [gertjanstulp](https://github.com/snarky-snark/home-assistant-variables/pull/69)!
+
 ## [0.12.3] - 2021-05-13
 ### Fixed
 - Fixed stale version number in manifest that was stuck on v0.12.1.
@@ -129,7 +153,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Variable updates occur when the state of any tracked entity changes.
 - README with initial documentation.
 
-[Unreleased]: https://github.com/snarky-snark/home-assistant-variables/compare/v0.12.3...develop
+[Unreleased]: https://github.com/snarky-snark/home-assistant-variables/compare/v0.15.0...develop
+[0.15.0]: https://github.com/snarky-snark/home-assistant-variables/compare/v0.14.2...v0.15.0
+[0.14.2]: https://github.com/snarky-snark/home-assistant-variables/compare/v0.14.1...v0.14.2
+[0.14.1]: https://github.com/snarky-snark/home-assistant-variables/compare/v0.14.0...v0.14.1
+[0.14.0]: https://github.com/snarky-snark/home-assistant-variables/compare/v0.13.1...v0.14.0
+[0.13.1]: https://github.com/snarky-snark/home-assistant-variables/compare/v0.13.0...v0.13.1
+[0.13.0]: https://github.com/snarky-snark/home-assistant-variables/compare/v0.12.3...v0.13.0
 [0.12.3]: https://github.com/snarky-snark/home-assistant-variables/compare/v0.12.2...v0.12.3
 [0.12.2]: https://github.com/snarky-snark/home-assistant-variables/compare/v0.12.1...v0.12.2
 [0.12.1]: https://github.com/snarky-snark/home-assistant-variables/compare/v0.12.0...v0.12.1
